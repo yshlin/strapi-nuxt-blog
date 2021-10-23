@@ -1,11 +1,13 @@
-# STATIC
+SONiVOX EAS Version 2.00 Editing Software: Synthfont Viena
+Ported from Samsung GT-E1272 and Android Soundfont of SONiVOX EAS Full Presets and Full Keys Range (no reverb). Frequency 11khz - 32khz
+Using a Creative Sound Blaster GM bank. Using a Software Creative Vienna Soundfont Studio. Copy a Soundfont wt22khz.sf2 from in Floppy Disk 1.44MB Assembled of Indonesia.
+Sonivox Corporation Tokyo Japan.
+Copyright 1993 Sonivox Corporation
 
-**This directory is not required, you can delete it if you don't want to use it.**
+https://musical-artifacts.com/artifacts/824
 
-This directory contains your static files.
-Each file inside this directory is mapped to `/`.
-Thus you'd want to delete this README.md before deploying to production.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+This soundfont is based on the Sonivox EAS synthesizer, Copyright Sonic Network Inc. 2006. 
+Sonivox EAS belongs to the Android Open Source Project. 
+https://android.googlesource.com/platform/external/sonivox/+/refs/heads/master
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/assets#static).

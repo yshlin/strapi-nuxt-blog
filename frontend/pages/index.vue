@@ -1,22 +1,32 @@
 <template>
-  <div>
-    <div class="uk-section">
-      <div class="uk-container uk-container-large">
+  <v-container>
+    <v-row justify="center" no-gutters>
+      <v-col cols="12" xl="6" lg="8" sm="10" xs="12">
         <h1>{{ homepage.hero.title }}</h1>
-        <Articles :articles="articles" />
-      </div>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+    <v-row
+      v-for="article in articles"
+      :key="article.id"
+      justify="center"
+      no-gutters
+    >
+      <v-col cols="12" xl="6" lg="8" sm="10" xs="12">
+        <ArticleCard :article="article" />
+        <v-divider />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import Articles from "../components/Articles";
 import { getMetaTags } from "../utils/seo";
 import { getStrapiMedia } from "../utils/medias";
+import ArticleCard from "../components/ArticleCard";
 
 export default {
   components: {
-    Articles,
+    ArticleCard,
   },
   async asyncData({ $strapi }) {
     return {
@@ -41,7 +51,9 @@ export default {
       meta: getMetaTags(fullSeo),
       link: [
         {
-          rel: "favicon",
+          // rel: "favicon",
+          rel: "icon",
+          type: "image/png",
           href: getStrapiMedia(favicon.url),
         },
       ],

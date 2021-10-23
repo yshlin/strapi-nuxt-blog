@@ -1,41 +1,27 @@
 <template>
-  <div>
-    <div
-      v-if="article.image"
-      id="banner"
-      class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding"
-      :data-src="getStrapiMedia(article.image.url)"
-      uk-img
-    >
-      <h1>{{ article.title }}</h1>
-    </div>
-
-    <div class="uk-section">
-      <div class="uk-container uk-container-small">
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          v-if="article.content"
-          id="editor"
-          v-html="$md.render(article.content)"
-        />
-        <!-- eslint-enable vue/no-v-html -->
-        <p v-if="article.published_at">
-          {{ moment(article.published_at).format("MMM Do YY") }}
-        </p>
-      </div>
-    </div>
-  </div>
+  <v-container>
+    <v-row justify="center" no-gutters>
+      <v-col cols="12" xl="6" lg="8" sm="10" xs="12">
+        <ArticleCard :article="article" full />
+        <v-divider />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import moment from "moment";
 import { getStrapiMedia } from "../../utils/medias";
 import { getMetaTags } from "../../utils/seo";
+import ArticleCard from "../../components/ArticleCard";
 
 export default {
+  components: {
+    ArticleCard,
+  },
   async asyncData({ $strapi, params }) {
     const matchingArticles = await $strapi.find("articles", {
-      slug: params.slug,
+      title: params.slug,
     });
     return {
       article: matchingArticles[0],
@@ -46,10 +32,6 @@ export default {
     return {
       apiUrl: process.env.strapiBaseUri,
     };
-  },
-  methods: {
-    moment,
-    getStrapiMedia,
   },
   head() {
     const { defaultSeo, favicon, siteName } = this.global;
@@ -73,6 +55,10 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    moment,
+    getStrapiMedia,
   },
 };
 </script>

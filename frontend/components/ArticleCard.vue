@@ -1,51 +1,113 @@
 <template>
-  <nuxt-link
-    :key="article.id"
-    :to="{ name: 'articles-slug', params: { slug: article.slug } }"
-    class="uk-link-reset"
-  >
-    <div class="uk-card uk-card-muted">
-      <div class="uk-card-media-top">
-        <img :src="getStrapiMedia(article.image.url)" height="100" />
-      </div>
-      <div class="uk-card-body">
-        <p v-if="article.category" id="category" class="uk-text-uppercase">
-          {{ article.category.name }}
-        </p>
-        <p id="title" class="uk-text-large">{{ article.title }}</p>
-        <hr class="uk-divider-small" />
-        <div class="uk-grid-small uk-flex-left" data-uk-grid="true">
-          <div>
-            <img
-              class="avatar"
+  <v-container>
+    <v-row align="center">
+      <v-col>
+        <nuxt-link
+          :to="{
+            name: 'articles-slug',
+            params: { slug: '關於 eddie-lin.me - 工程師的奇幻漂流 🤓⛵🌈' },
+          }"
+          class="d-inline-block text-decoration-none"
+        >
+          <v-avatar>
+            <v-img
               :src="getStrapiMedia(article.author.picture.url)"
-              style="position: static; border-radius: 50%; object-fit: cover"
-              width="40px"
-              height="40px"
-              :alt="article.title"
+              :alt="article.author.name"
+              class="d-inline-block"
             />
-          </div>
-          <div class="uk-width-expand">
-            <p class="uk-margin-remove-bottom">{{ article.author.name }}</p>
-          </div>
+          </v-avatar>
+          <span
+            class="font-weight-bold d-inline-block grey--text text--darken-2"
+            >{{ article.author.name }}</span
+          >
+        </nuxt-link>
+        <span class="font-weight-thin d-inline-block grey--text">
+          發表於
+          <time v-if="article.published_at">
+            {{ moment(article.published_at).startOf("day").fromNow() }}
+          </time>
+        </span>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <nuxt-link
+          :key="article.id"
+          :to="{ name: 'articles-slug', params: { slug: article.title } }"
+          class="text-decoration-none"
+        >
+          <v-img
+            :aspect-ratio="16 / 9"
+            :src="getStrapiMedia(article.image.url)"
+            class="white--text"
+            style="position: relative"
+          >
+            <div class="ribbon ribbon-top-right">
+              <span
+                v-if="article.category"
+                class="text-subtitle-1 font-weight-bold"
+              >
+                {{ article.category.name }}
+              </span>
+            </div>
+            <div v-if="full">
+              <h1 class="hero-heading my-2 mx-4">
+                {{ article.title }}
+              </h1>
+            </div>
+            <div v-else>
+              <h2 class="hero-heading my-2 mx-4">
+                {{ article.title }}
+              </h2>
+            </div>
+          </v-img>
+        </nuxt-link>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <div v-if="full" class="text-body-1 mx-4">
+          <TuiEditorViewer :initial-value="article.content"></TuiEditorViewer>
         </div>
-      </div>
-    </div>
-  </nuxt-link>
+        <div v-else class="text-body-1 mx-4">
+          <div>{{ article.description }}</div>
+          <br />
+          <nuxt-link
+            :to="{ name: 'articles-slug', params: { slug: article.slug } }"
+            class="text-decoration-none"
+          >
+            閱讀全文（約 {{ getReadingTime(article.content) }} 分鐘）
+          </nuxt-link>
+          <br /><br />
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import { getStrapiMedia } from "../utils/medias";
+import moment from "moment";
+import { getReadingTime } from "../utils/reading-time";
+
+moment.locale("zh-TW");
 
 export default {
   props: {
+    full: {
+      type: Boolean,
+      default: () => false,
+    },
     article: {
       type: Object,
       default: () => ({}),
     },
   },
   methods: {
+    moment,
     getStrapiMedia,
+    getReadingTime,
   },
 };
 </script>

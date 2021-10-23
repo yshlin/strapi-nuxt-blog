@@ -1,6 +1,7 @@
 const strapiBaseUri = process.env.API_URL || "http://localhost:1337";
 
 export default {
+  // ssr: false,
   target: "static",
   env: {
     strapiBaseUri,
@@ -20,13 +21,27 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    "uikit/dist/css/uikit.min.css",
-    "uikit/dist/css/uikit.css",
-    "@assets/css/main.css",
-  ],
-  plugins: [{ src: "~/plugins/uikit.js", ssr: false }],
+  css: ["@assets/css/main.scss"],
+  plugins: [{ src: "~/plugins/tui-editor.js", ssr: false }],
   modules: ["@nuxtjs/markdownit", "@nuxtjs/strapi"],
+  buildModules: ["@nuxtjs/vuetify"],
+  build: {
+    babel: {
+      compact: true,
+    },
+    transpile: [
+      "@toast-ui/editor",
+      "@toast-ui/vue-editor",
+      "@toast-ui/editor-plugin-abc",
+      "@toast-ui/editor-plugin-alphatex",
+      "@toast-ui/editor-plugin-chart",
+      "@toast-ui/editor-plugin-code-syntax-highlight",
+      "@toast-ui/editor-plugin-mathjax",
+      "@toast-ui/editor-plugin-table-merged-cell",
+      "@toast-ui/editor-plugin-uml",
+      "@coderline/alphatab",
+    ],
+  },
   strapi: {
     url: strapiBaseUri,
     entities: [
@@ -54,5 +69,9 @@ export default {
     breaks: true,
     injected: true,
     html: true,
+  },
+  vuetify: {
+    customVariables: ["~/assets/css/variables.scss"],
+    optionsPath: "./vuetify.options.js",
   },
 };

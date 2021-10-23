@@ -1,28 +1,36 @@
 <template>
-  <div>
-    <client-only>
-      <div class="uk-section">
-        <div class="uk-container uk-container-large">
-          <h1>{{ category.name }}</h1>
-          <Articles :articles="articles || []" />
-        </div>
-      </div>
-    </client-only>
-  </div>
+  <v-container>
+    <v-row justify="center" no-gutters>
+      <v-col cols="12" lg="6" md="8" sm="10" xs="12">
+        <h1>分類：{{ category.name }}</h1>
+      </v-col>
+    </v-row>
+    <v-row
+      v-for="article in articles"
+      :key="article.id"
+      justify="center"
+      no-gutters
+    >
+      <v-col cols="12" xl="6" lg="8" sm="10" xs="12">
+        <ArticleCard :article="article" :full="full" />
+        <v-divider />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import Articles from "../../components/Articles";
+import ArticleCard from "../../components/ArticleCard";
 import { getMetaTags } from "../../utils/seo";
 import { getStrapiMedia } from "../../utils/medias";
 
 export default {
   components: {
-    Articles,
+    ArticleCard,
   },
   async asyncData({ $strapi, params }) {
     const matchingCategories = await $strapi.find("categories", {
-      slug: params.slug,
+      name: params.slug,
     });
     return {
       category: matchingCategories[0],
