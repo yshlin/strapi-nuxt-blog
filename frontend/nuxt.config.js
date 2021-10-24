@@ -23,11 +23,15 @@ export default {
    */
   css: ["@assets/css/main.scss"],
   plugins: [{ src: "~/plugins/tui-editor.js", ssr: false }],
-  modules: ["@nuxtjs/markdownit", "@nuxtjs/strapi"],
+  modules: ["@nuxtjs/markdownit", "@nuxtjs/strapi", "@nuxtjs/i18n"],
   buildModules: ["@nuxtjs/vuetify"],
   build: {
     babel: {
       compact: true,
+      plugins: [
+        "@babel/plugin-proposal-optional-chaining",
+        "@babel/plugin-proposal-nullish-coalescing-operator",
+      ],
     },
     transpile: [
       "@toast-ui/editor",
@@ -73,5 +77,23 @@ export default {
   vuetify: {
     customVariables: ["~/assets/css/variables.scss"],
     optionsPath: "./vuetify.options.js",
+  },
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        file: "en.js",
+      },
+      {
+        code: "zh-TW",
+        file: "zh-TW.js",
+      },
+    ],
+    lazy: true,
+    langDir: "lang/",
+    defaultLocale: "zh-TW",
+    vueI18n: {
+      fallbackLocale: "zh-TW",
+    },
   },
 };

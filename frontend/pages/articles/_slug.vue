@@ -10,22 +10,37 @@
 </template>
 
 <script>
-import moment from "moment";
 import { getStrapiMedia } from "../../utils/medias";
 import { getMetaTags } from "../../utils/seo";
 import ArticleCard from "../../components/ArticleCard";
+import { strapiLocale, vueLocale } from "../../utils/locale";
 
 export default {
   components: {
     ArticleCard,
   },
-  async asyncData({ $strapi, params }) {
+  async asyncData({ $strapi, i18n, store, params }) {
     const matchingArticles = await $strapi.find("articles", {
       title: params.slug,
+      _locale: strapiLocale(i18n),
     });
+    const currentArticle = matchingArticles[0];
+    let articleRoute = {};
+    for (const localization of currentArticle.localizations) {
+      const localeArticles = await $strapi.find("articles", {
+        "localizations.id": currentArticle.id,
+        _locale: localization.locale,
+      });
+      articleRoute[vueLocale(localization.locale)] = {
+        slug: localeArticles[0].title,
+      };
+    }
+    await store.dispatch("i18n/setRouteParams", articleRoute);
     return {
-      article: matchingArticles[0],
-      global: await $strapi.find("global"),
+      article: currentArticle,
+      global: await $strapi.find("global", {
+        _locale: strapiLocale(i18n),
+      }),
     };
   },
   data() {
@@ -50,14 +65,14 @@ export default {
       meta: getMetaTags(fullSeo),
       link: [
         {
-          rel: "favicon",
+          rel: "icon",
+          type: "image/png",
           href: getStrapiMedia(favicon.url),
         },
       ],
     };
   },
   methods: {
-    moment,
     getStrapiMedia,
   },
 };

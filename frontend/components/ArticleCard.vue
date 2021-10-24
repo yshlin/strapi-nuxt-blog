@@ -3,10 +3,12 @@
     <v-row align="center">
       <v-col>
         <nuxt-link
-          :to="{
-            name: 'articles-slug',
-            params: { slug: '關於 eddie-lin.me - 工程師的奇幻漂流 🤓⛵🌈' },
-          }"
+          :to="
+            localePath({
+              name: 'articles-slug',
+              params: { slug: '關於 eddie-lin.me - 工程師的奇幻漂流 🤓⛵🌈' },
+            })
+          "
           class="d-inline-block text-decoration-none"
         >
           <v-avatar>
@@ -22,7 +24,7 @@
           >
         </nuxt-link>
         <span class="font-weight-thin d-inline-block grey--text">
-          發表於
+          {{ $t("publish.at") }}
           <time v-if="article.published_at">
             {{ moment(article.published_at).startOf("day").fromNow() }}
           </time>
@@ -33,7 +35,12 @@
       <v-col>
         <nuxt-link
           :key="article.id"
-          :to="{ name: 'articles-slug', params: { slug: article.title } }"
+          :to="
+            localePath({
+              name: 'articles-slug',
+              params: { slug: article.title },
+            })
+          "
           class="text-decoration-none"
         >
           <v-img
@@ -74,10 +81,15 @@
           <div>{{ article.description }}</div>
           <br />
           <nuxt-link
-            :to="{ name: 'articles-slug', params: { slug: article.slug } }"
+            :to="
+              localePath({
+                name: 'articles-slug',
+                params: { slug: article.title },
+              })
+            "
             class="text-decoration-none"
           >
-            閱讀全文（約 {{ getReadingTime(article.content) }} 分鐘）
+            {{ $t("read.full", { count: getReadingTime(article.content) }) }}
           </nuxt-link>
           <br /><br />
         </div>
@@ -91,8 +103,6 @@ import { getStrapiMedia } from "../utils/medias";
 import moment from "moment";
 import { getReadingTime } from "../utils/reading-time";
 
-moment.locale("zh-TW");
-
 export default {
   props: {
     full: {
@@ -103,6 +113,12 @@ export default {
       type: Object,
       default: () => ({}),
     },
+  },
+  beforeMount() {
+    moment.locale(this.$i18n.locale);
+  },
+  beforeUpdate() {
+    moment.locale(this.$i18n.locale);
   },
   methods: {
     moment,
