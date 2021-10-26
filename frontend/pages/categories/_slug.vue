@@ -32,7 +32,7 @@ export default {
   async asyncData({ $strapi, i18n, store, params }) {
     const matchingCategories = await $strapi.find("categories", {
       name: params.slug,
-      _locale: strapiLocale(i18n),
+      _locale: strapiLocale(i18n.locale),
     });
     const currentCategory = matchingCategories[0];
     let categoryRoute = {};
@@ -50,10 +50,10 @@ export default {
       category: currentCategory,
       articles: await $strapi.find("articles", {
         "category.name": params.slug,
-        _locale: strapiLocale(i18n),
+        _locale: strapiLocale(i18n.locale),
       }),
       global: await $strapi.find("global", {
-        _locale: strapiLocale(i18n),
+        _locale: strapiLocale(i18n.locale),
       }),
     };
   },

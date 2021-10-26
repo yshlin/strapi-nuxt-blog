@@ -32,13 +32,13 @@ export default {
   async asyncData({ $strapi, i18n }) {
     return {
       articles: await $strapi.find("articles", {
-        _locale: strapiLocale(i18n),
+        _locale: strapiLocale(i18n.locale),
       }),
       homepage: await $strapi.find("homepage", {
-        _locale: strapiLocale(i18n),
+        _locale: strapiLocale(i18n.locale),
       }),
       global: await $strapi.find("global", {
-        _locale: strapiLocale(i18n),
+        _locale: strapiLocale(i18n.locale),
       }),
     };
   },

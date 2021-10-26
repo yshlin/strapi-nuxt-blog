@@ -130,7 +130,7 @@ export default {
   methods: {
     async loadCategories() {
       this.categories = await this.$strapi.find("categories", {
-        _locale: strapiLocale(this.$i18n),
+        _locale: strapiLocale(this.$i18n.locale),
       });
     },
   },

@@ -22,7 +22,7 @@ export default {
   async asyncData({ $strapi, i18n, store, params }) {
     const matchingArticles = await $strapi.find("articles", {
       title: params.slug,
-      _locale: strapiLocale(i18n),
+      _locale: strapiLocale(i18n.locale),
     });
     const currentArticle = matchingArticles[0];
     let articleRoute = {};
@@ -39,7 +39,7 @@ export default {
     return {
       article: currentArticle,
       global: await $strapi.find("global", {
-        _locale: strapiLocale(i18n),
+        _locale: strapiLocale(i18n.locale),
       }),
     };
   },

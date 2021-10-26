@@ -15,8 +15,11 @@
   },
   "dependencies": {
     "@coderline/alphatab": "^1.2.1",
+    "@nuxtjs/feed": "^2.0.0",
+    "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/i18n": "^7.1.0",
     "@nuxtjs/markdownit": "^1.2.7",
+    "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/strapi": "^0.1.6",
     "@toast-ui/editor": "file:../backend/plugins/strapi-plugin-wysiwyg-toastui/submodules/tui.editor/apps/editor",
     "@toast-ui/editor-plugin-abc": "file:../backend/plugins/strapi-plugin-wysiwyg-toastui/submodules/tui.editor/plugins/abc",
@@ -27,6 +30,7 @@
     "@toast-ui/editor-plugin-table-merged-cell": "file:../backend/plugins/strapi-plugin-wysiwyg-toastui/submodules/tui.editor/plugins/table-merged-cell",
     "@toast-ui/editor-plugin-uml": "file:../backend/plugins/strapi-plugin-wysiwyg-toastui/submodules/tui.editor/plugins/uml",
     "@toast-ui/vue-editor": "file:../backend/plugins/strapi-plugin-wysiwyg-toastui/submodules/tui.editor/apps/vue-editor",
+    "axios": "^0.23.0",
     "graphql": "^14.5.8",
     "moment": "^2.29.0",
     "nuxt": "^2.14.6"
