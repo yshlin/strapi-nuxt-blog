@@ -7,4 +7,6 @@ export default {
   "category:": "Category: ",
   "category.title": "{category} articles",
   "category.description": "All articles about {category}",
+  "next.page": "Next Page",
+  "page.n": "Page {page}",
 };

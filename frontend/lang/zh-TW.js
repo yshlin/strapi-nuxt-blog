@@ -7,4 +7,6 @@ export default {
   "category:": "分類：",
   "category.title": "{category}類文章",
   "category.description": "所有有關{category}分類的文章",
+  "next.page": "下一頁",
+  "page.n": "第 {page} 頁",
 };
