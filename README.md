@@ -61,5 +61,7 @@ public/uploads/
 
 ## TODOs
 * Integrate [Netlify CLI](https://docs.netlify.com/cli/get-started/) to automate deployment
+* Integrate SEO-friendly infinite-scroll-based paging.
 * Better initial data to demonstrate the capability of the blogware
 * Externalize project-specific config
+* Containerize to simplify install process
