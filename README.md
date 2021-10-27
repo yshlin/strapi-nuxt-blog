@@ -53,10 +53,11 @@ npm run develop
 ```
 
 ## Notes on backup and restore
-Currently, it's simple to back up and restore data, simply copy these 2 folders:
+Currently, it's simple to back up and restore blog data, 
+just simply copy these 2 folders:
 ```shell
-.tmp/
-public/uploads/
+backend/.tmp/
+backend/public/uploads/
 ```
 
 ## TODOs
