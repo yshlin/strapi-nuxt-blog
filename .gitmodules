@@ -1,0 +1,3 @@
+[submodule "backend/plugins/strapi-plugin-wysiwyg-toastui"]
+	path = backend/plugins/strapi-plugin-wysiwyg-toastui
+	url = git@github.com:yshlin/strapi-plugin-wysiwyg-toastui.git

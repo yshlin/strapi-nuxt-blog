@@ -5,7 +5,7 @@
   "author": "You",
   "private": true,
   "scripts": {
-    "cpfonts": "cp -R node_modules/@coderline/alphatab/dist/font/ static/font/ && cp -R node_modules/@coderline/alphatab/dist/soundfont/ static/soundfont/",
+    "syncassets": "rsync -av ../backend/public/font/ static/font/ && rsync -av ../backend/public/soundfont/ static/soundfont/ && rsync -av ../backend/public/uploads/ static/uploads/",
     "dev": "nuxt",
     "develop": "nuxt",
     "start": "nuxt start",
