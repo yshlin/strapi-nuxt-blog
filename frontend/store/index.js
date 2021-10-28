@@ -1,5 +1,3 @@
-export const state = () => ({
-  pageSize: 10,
-});
+export const state = () => ({});
 
 export const mutations = {};

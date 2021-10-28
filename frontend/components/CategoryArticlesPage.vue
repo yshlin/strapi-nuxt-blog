@@ -18,6 +18,19 @@
     </v-row>
     <v-row v-if="articles.length >= pageSize">
       <v-col>
+        <div
+          v-if="infiniteScroll"
+          class="d-flex align-center text-center justify-center"
+        >
+          <v-progress-circular
+            v-intersect="onIntersect"
+            :style="`transition: opacity 1s ease-in-out; opacity: ${
+              isIntersecting ? '1' : '0'
+            }`"
+            indeterminate
+            size="48"
+          />
+        </div>
         <v-btn
           block
           x-large
@@ -27,6 +40,7 @@
               params: { slug: category.name, page: page + 1 },
             })
           "
+          :style="infiniteScroll ? 'opacity: 0; pointer-events: none' : ''"
         >
           {{ $t("next.page") }}
         </v-btn>
@@ -45,8 +59,8 @@ export default {
   components: {
     ArticleCard,
   },
-  async asyncData({ $strapi, i18n, store, params }) {
-    const pageSize = store.state.pageSize;
+  async asyncData({ $strapi, i18n, store, env, params }) {
+    const pageSize = env.pageSize;
     const page = parseInt(params.page) || 1;
     const pagePostfix =
       page > 1 ? ` (${i18n.t("page.n", { page: page })})` : "";
@@ -67,6 +81,9 @@ export default {
     }
     await store.dispatch("i18n/setRouteParams", categoryRoute);
     return {
+      infiniteScroll: env.enableInfiniteScroll,
+      isIntersecting: false,
+      loadedPage: page,
       pageSize,
       page,
       pagePostfix,
@@ -107,6 +124,26 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    async onIntersect(entries) {
+      this.isIntersecting = entries[0].isIntersecting;
+      if (this.isIntersecting) {
+        const loadedArticles = await this.loadArticles(++this.loadedPage);
+        for (const loadedArticle of loadedArticles) {
+          this.articles.push(loadedArticle);
+        }
+        this.isIntersecting = false;
+      }
+    },
+    async loadArticles(nextPage) {
+      return await this.$strapi.find("articles", {
+        "category.name": this.category.name,
+        _locale: strapiLocale(this.$i18n.locale),
+        _start: (nextPage - 1) * this.pageSize,
+        _limit: this.pageSize,
+      });
+    },
   },
 };
 </script>

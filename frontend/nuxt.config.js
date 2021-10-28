@@ -9,6 +9,9 @@ export default {
   target: "static",
   env: {
     strapiBaseUri,
+    pageSize: 5,
+    // Currently articles would be fully preloaded when use in SSG mode
+    enableInfiniteScroll: true,
   },
   head: {
     meta: [
