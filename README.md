@@ -19,9 +19,9 @@ Comes with rich markdown extensions to blog **music notations**, **math typesett
       * Chart (TUI built-in with [tui-chart](https://ui.toast.com/tui-chart))
       * UML diagram (TUI built-in with [PlantUML](https://plantuml.com/))
 * Frontend (Nuxt-based SPA, can run in CSR, [SSR](https://nuxtjs.org/docs/concepts/server-side-rendering/), or [SSG](https://nuxtjs.org/docs/concepts/static-site-generation/) mode)
-  * Simple one-column blog template
+  * Simple & responsive one-column blog template
   * Categories as menu
-  * i18n with dynamic routing and non-english slugs
+  * i18n with dynamic routing and non-english slugs supported
   * Sitemap/RSS feed module included with dynamic & non-english route support
   * GTM module included to track (Nuxt-Route-based) pageviews in GA
 
