@@ -5,11 +5,16 @@
   "scripts": {
     "develop:backend": "npm run --prefix backend develop",
     "develop:frontend": "wait-on http://localhost:1337/admin && npm run --prefix frontend develop",
-    "develop": "cross-env FORCE_COLOR=1 npm-run-all -l -p develop:*"
+    "develop": "cross-env FORCE_COLOR=1 npm-run-all -l -p develop:*",
+    "deploy:netlify": "netlify deploy --dir=frontend/dist",
+    "deploy:netlify:prod": "netlify deploy --dir=frontend/dist --prod",
   },
   "devDependencies": {
+    "cross-env": "7.0.3",
     "npm-run-all": "4.1.5",
-    "wait-on": "5.2.1",
-    "cross-env": "7.0.3"
+    "wait-on": "5.2.1"
+  },
+  "dependencies": {
+    "netlify-cli": "^6.14.6"
   }
 }

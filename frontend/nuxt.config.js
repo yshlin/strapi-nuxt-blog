@@ -1,7 +1,7 @@
 import axios from "axios";
 import { $trans, strapiLocale } from "./utils/locale";
 
-const siteUri = process.env.API_URL || "http://eddie-lin.me/";
+const siteUri = process.env.API_URL || "https://eddie-lin.me/";
 const strapiBaseUri = process.env.API_URL || "http://localhost:1337";
 
 export default {

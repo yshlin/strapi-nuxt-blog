@@ -25,7 +25,7 @@ Comes with rich markdown extensions to blog **music notations**, **math typesett
   * Sitemap/RSS feed module included with dynamic & non-english route support
   * GTM module included to track (Nuxt-Route-based) pageviews in GA
 
-## Get it running
+## Get it start and running
 
 ```shell
 git clone --recurse-submodules git@github.com:yshlin/strapi-nuxt-blog.git
@@ -52,6 +52,16 @@ npm syncassets
 npm run develop
 ```
 
+## Generate and deploy your static site
+When you are ready to publish your static blog, run:
+```shell
+cd frontend/
+# now in strapi-nuxt-blog/frontend/
+npm run generate
+# deploy on netlify, following the command line instructions
+npm run deploy:netlify
+```
+
 ## Notes on backup and restore
 Currently, it's simple to back up and restore blog data, 
 just simply copy these 2 folders:
@@ -61,8 +71,7 @@ backend/public/uploads/
 ```
 
 ## TODOs
-* Integrate [Netlify CLI](https://docs.netlify.com/cli/get-started/) to automate deployment
-* Integrate SEO-friendly infinite-scroll-based paging.
+* Integrate netlify deploy on strapi admin panel
 * Better initial data to demonstrate the capability of the blogware
-* Externalize project-specific config
+* Externalize project-specific config to backend or config files
 * Containerize to simplify install process
