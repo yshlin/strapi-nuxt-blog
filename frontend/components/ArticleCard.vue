@@ -23,10 +23,22 @@
             >{{ article.author.name }}</span
           >
         </nuxt-link>
-        <span class="font-weight-thin d-inline-block grey--text">
+        <span
+          v-if="article.published_at"
+          class="font-weight-thin d-inline-block grey--text"
+        >
           {{ $t("publish.at") }}
-          <time v-if="article.published_at">
+          <time>
             {{ moment(article.published_at).startOf("day").fromNow() }}
+          </time>
+        </span>
+        <span
+          v-if="article.updated_at"
+          class="font-weight-thin d-inline-block grey--text"
+        >
+          {{ $t("update.at") }}
+          <time>
+            {{ moment(article.updated_at).startOf("day").fromNow() }}
           </time>
         </span>
       </v-col>

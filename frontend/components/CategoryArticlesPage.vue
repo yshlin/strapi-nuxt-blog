@@ -90,6 +90,7 @@ export default {
       category: currentCategory,
       articles: await $strapi.find("articles", {
         "category.name": params.slug,
+        _sort: "published_at:DESC",
         _locale: strapiLocale(i18n.locale),
         _start: (page - 1) * pageSize,
         _limit: pageSize,
@@ -139,6 +140,7 @@ export default {
     async loadArticles(nextPage) {
       return await this.$strapi.find("articles", {
         "category.name": this.category.name,
+        _sort: "published_at:DESC",
         _locale: strapiLocale(this.$i18n.locale),
         _start: (nextPage - 1) * this.pageSize,
         _limit: this.pageSize,
